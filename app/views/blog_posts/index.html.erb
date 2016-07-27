@@ -1,31 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Blog Posts</h1>
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'New Blog post', new_blog_post_path %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Blog entry</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h1>Welcome to Hipsterville</h1>
 
-  <tbody>
-    <% @blog_posts.each do |blog_post| %>
-      <tr>
-        <td><%= blog_post.title %></td>
-        <td><%= blog_post.author %></td>
-        <td><%= blog_post.blog_entry %></td>
-        <td><%= link_to 'Show', blog_post %></td>
-        <td><%= link_to 'Edit', edit_blog_post_path(blog_post) %></td>
-        <td><%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row">
+  <%= @blog_posts.each do |blog_post| %>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panelpanel-heading">
+        <p><strong><%= link_to blog_post.title, blog_post %></strong> by <%= blog_post.author %></p>
+        <div class="posted-at">posted at: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></div>
+      </div>
+      <div class="panel-body">
+          by <strong><%= blog_post %></strong><br />
+          <p><span class="posted-at">posted at: <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></span></p>
+          <p><%= blog_post.blog_entry[0..250] %>...[<%= link_to "READ MORE", blog_post %>]</p>
+        </div>
+      <div class="panel-footer">
+        <%= link_to 'Edit', edit_blog_post_path(blog_post), class: "btn btn-warning" %>
+        <%= link_to 'Delete', blog_post, method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
 <br>
-
-<%= link_to 'New Blog post', new_blog_post_path %>
